@@ -2,26 +2,32 @@
 using System.Linq;
 using System.Windows.Forms;
 
-namespace My_Music_Player
+namespace MusicPlayer
 {
     public partial class MainForm : Form
     {
+        #region Constructors
+
         public MainForm()
         {
             InitializeComponent();
         }
 
+        #endregion
+
+        #region Private Methods
+
         private void buttonLoadFile_Click( object sender, EventArgs e )
         {
             var openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = @"e:\\";
-            openFileDialog.Filter = @"MP3 Audio file (*.mp3)|*.mp3|Windows Media Audio File (*.wma)|*.wma|WAV Audio File (*.wav)|*.wav|All Files (*.*)|*.*";
+            openFileDialog.Filter =
+                @"MP3 Audio file (*.mp3)|*.mp3|Windows Media Audio File (*.wma)|*.wma|WAV Audio File (*.wav)|*.wav|All Files (*.*)|*.*";
             openFileDialog.FilterIndex = 1;
             openFileDialog.RestoreDirectory = false;
             openFileDialog.Multiselect = true;
 
             if ( openFileDialog.ShowDialog() == DialogResult.OK )
-            {
                 try
                 {
                     using ( openFileDialog.OpenFile() )
@@ -44,7 +50,6 @@ namespace My_Music_Player
                 {
                     MessageBox.Show( @"File not find", @"Warning!", MessageBoxButtons.OK, MessageBoxIcon.Warning );
                 }
-            }
         }
 
         private void buttonPlayAll_Click( object sender, EventArgs e )
@@ -52,7 +57,7 @@ namespace My_Music_Player
             var play = axWindowsMediaPlayer1.playlistCollection.newPlaylist( @"myplaylist" );
             var allItems = listView1.Items.Cast<ListViewItem>().Select( el => el.SubItems[1].Text );
 
-            foreach ( var item in allItems)
+            foreach ( var item in allItems )
             {
                 var media = axWindowsMediaPlayer1.newMedia( item );
                 play.appendItem( media );
@@ -71,5 +76,7 @@ namespace My_Music_Player
             var select = listView1.FocusedItem.SubItems[1].Text;
             axWindowsMediaPlayer1.URL = select;
         }
+
+        #endregion
     }
 }

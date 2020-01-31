@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace My_Music_Player
+namespace MusicPlayer
 {
     internal static class Program
     {

@@ -1,4 +1,4 @@
-﻿namespace My_Music_Player
+﻿namespace MusicPlayer
 {
     partial class MainForm
     {
